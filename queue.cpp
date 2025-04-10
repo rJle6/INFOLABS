@@ -73,6 +73,8 @@ bool queue_poll(Queue& q, int& element) {
 void queue_del(Queue& q) {
     delete[] q.data;
     q.data = nullptr;
+    q.size=0;
+    q.capacity=0;
 }
 
 void test_performance() {
@@ -85,14 +87,14 @@ void test_performance() {
         auto start = high_resolution_clock::now();
         if (!queue_push(q, i)) break;
         auto end = high_resolution_clock::now();
-        cout << i << "," << duration_cast<nanoseconds>(end - start).count();
+        //cout << i << "," << duration_cast<nanoseconds>(end - start).count()<<endl;
     }
     for (size_t i = 0; i < max_ops; i++) {
         int val;
         auto start = high_resolution_clock::now();
         if (!queue_poll(q, val)) break;
         auto end = high_resolution_clock::now();
-        cout << i << "," << duration_cast<nanoseconds>(end - start).count();
+        //cout << i << "," << duration_cast<nanoseconds>(end - start).count()<<endl;
     }
     queue_del(q);
 }
