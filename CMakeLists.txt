@@ -1,10 +1,18 @@
 cmake_minimum_required(VERSION 3.20)
 
-set(CMAKE_CXX_COMPILER "g++")
+project(ASCII-Tetris LANGUAGES C)
 
-project(my_app LANGUAGES CXX)
+set(CMAKE_C_STANDARD 99)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
-set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+add_executable(tetris ${CMAKE_CURRENT_SOURCE_DIR}/tetris.c ${CMAKE_CURRENT_SOURCE_DIR}/main.c)
 
-add_executable(my_app main.cpp)
+target_include_directories(tetris PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
+
+find_package(Curses REQUIRED)
+if(CURSES_FOUND)
+    target_link_libraries(tetris PRIVATE ${CURSES_LIBRARIES})
+    target_include_directories(tetris PRIVATE ${CURSES_INCLUDE_DIR})
+else()
+    target_link_libraries(tetris PRIVATE curses)
+endif()
