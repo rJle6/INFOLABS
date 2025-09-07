@@ -1,18 +1,28 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.10)
 
-project(ASCII-Tetris LANGUAGES C)
+set(CMAKE_C_COMPILER gcc)
+set(CMAKE_CXX_COMPILER g++)
 
-set(CMAKE_C_STANDARD 99)
-set(CMAKE_C_STANDARD_REQUIRED ON)
 
-add_executable(tetris ${CMAKE_CURRENT_SOURCE_DIR}/tetris.c ${CMAKE_CURRENT_SOURCE_DIR}/main.c)
+project(MyMathProject)
 
-target_include_directories(tetris PRIVATE ${CMAKE_CURRENT_SOURCE_DIR})
 
-find_package(Curses REQUIRED)
-if(CURSES_FOUND)
-    target_link_libraries(tetris PRIVATE ${CURSES_LIBRARIES})
-    target_include_directories(tetris PRIVATE ${CURSES_INCLUDE_DIR})
-else()
-    target_link_libraries(tetris PRIVATE curses)
-endif()
+message(INFO: ${CMAKE_SOURCE_DIR})
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+
+
+include_directories(include/)
+
+
+add_executable(mymath 
+    main.cpp 
+    src/ans_handler.cpp
+    src/my_math.cpp
+)
+
+
+set_target_properties(mymath PROPERTIES
+    CXX_STANDARD 17
+    CXX_STANDARD_REQUIRED ON
+)
