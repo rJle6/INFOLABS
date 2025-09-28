@@ -1,18 +1,13 @@
 cmake_minimum_required(VERSION 3.10)
-project(Blackjack21)
+project(Laba_blin)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(SOURCES
-    src/main.cpp
-    src/Game.cpp
-    src/Card.cpp
-    src/Deck.cpp
-    src/Player.cpp
-    src/Dealer.cpp
-    src/Hand.cpp
-)
+add_executable(random_vars_lab /home/rJle6/Laba_blin/src/(vstav_chto_nado).cpp)
 
-add_executable(blackjack21 ${SOURCES})
-target_include_directories(blackjack21 PRIVATE src)
+if(MSVC)
+    target_compile_options(random_vars_lab PRIVATE /W4)
+else()
+    target_compile_options(random_vars_lab PRIVATE -Wall -Wextra -Wpedantic)
+endif()
