@@ -1,13 +1,33 @@
-cmake_minimum_required(VERSION 3.10)
-project(Laba_blin)
+cmake_minimum_required(VERSION 3.20)
+project(SFML_Buttons)
 
 set(CMAKE_CXX_STANDARD 17)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-add_executable(random_vars_lab /home/rJle6/Laba_blin/src/(vstav_chto_nado).cpp)
+# Загрузка SFML 3.0.2
+include(FetchContent)
+FetchContent_Declare(
+    sfml
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG        3.0.2
+)
+FetchContent_MakeAvailable(sfml)
 
-if(MSVC)
-    target_compile_options(random_vars_lab PRIVATE /W4)
-else()
-    target_compile_options(random_vars_lab PRIVATE -Wall -Wextra -Wpedantic)
-endif()
+# Добавить include директорию
+include_directories(include)
+
+# Добавить исполняемый файл
+add_executable(main 
+    src/main.cpp
+    src/Button.cpp  
+    src/Layout.cpp
+)
+
+# Копировать шрифты
+file(COPY fonts DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+
+# Связать с SFML
+target_link_libraries(main 
+    sfml-graphics 
+    sfml-window 
+    sfml-system
+)
